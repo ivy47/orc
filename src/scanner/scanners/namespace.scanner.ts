@@ -4,6 +4,7 @@ import * as k8s from '@kubernetes/client-node';
 import { KubeService } from '../../kube/kube.service';
 import { ConfigService } from '../../config/config.service';
 import { CleanupResult } from '../../types';
+import { enrichKubernetesObject } from '../../utils/kube';
 
 @Injectable()
 export class NamespaceScanner extends BaseResourceScanner<k8s.V1Namespace> {
@@ -14,10 +15,7 @@ export class NamespaceScanner extends BaseResourceScanner<k8s.V1Namespace> {
   async scan(): Promise<k8s.V1Namespace[]> {
     try {
       const response = await this.kubeService.coreApi.listNamespace();
-      return response.items.map((namespace) => ({
-        ...namespace,
-        kind: 'Namespace',
-      }));
+      return response.items.map((namespace) => enrichKubernetesObject(namespace, 'Namespace'));
     } catch (error) {
       this.logger.error(`Failed to scan namespaces: ${error.message}`);
       throw error;
