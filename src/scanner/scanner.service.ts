@@ -3,14 +3,20 @@ import { BaseResourceScanner } from './base.scanner';
 import { NamespaceScanner } from './scanners/namespace.scanner';
 import { ConfigService } from '../config/config.service';
 import { K8sResource, BatchScanReport, ScanReport } from '../types';
+import { ServiceScanner } from './scanners/service.scanner';
+import { generateResourceName, getResourceAge, getResourceLabels } from '../utils/logger';
 
 @Injectable()
 export class ScannerService {
   private readonly logger = new Logger(ScannerService.name);
   private readonly scanners: BaseResourceScanner<K8sResource>[];
 
-  constructor(private readonly namespaceScanner: NamespaceScanner, private readonly configService: ConfigService) {
-    this.scanners = [this.namespaceScanner];
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly namespaceScanner: NamespaceScanner,
+    private readonly serviceScanner: ServiceScanner,
+  ) {
+    this.scanners = [this.namespaceScanner, this.serviceScanner];
   }
 
   async scan(): Promise<BatchScanReport> {
@@ -99,12 +105,39 @@ export class ScannerService {
       }
 
       const isOrphaned = await scanner.isOrphaned(resource);
+      const resourceName = generateResourceName(resource);
+      const labels = getResourceLabels(resource);
 
       if (isOrphaned) {
-        this.logger.debug(`${resource.metadata.namespace || 'cluster-wide'}: (${resource.kind}) ${resource.metadata.name} is orphaned`);
+        const context = {
+          labels,
+          age: getResourceAge(resource),
+          resource: resourceName,
+        };
 
-        if (!this.configService.get().dryRun) {
-          await scanner.cleanup(resource, false);
+        this.logger.debug(`Orphaned resource detected: ${resourceName}`, context);
+
+        if (this.configService.get().dryRun) {
+          return;
+        }
+
+        try {
+          const result = await scanner.cleanup(resource, false);
+
+          if (result.success) {
+            this.logger.debug(`Successfully cleaned up orphaned resource: ${resourceName}`, context);
+          } else {
+            this.logger.error(`Failed to clean up orphaned resource: ${resourceName}`, {
+              ...context,
+              error: result.error,
+            });
+          }
+        } catch (error) {
+          this.logger.error(`Unexpected error during cleanup: ${resourceName}`, {
+            ...context,
+            error: error.message,
+          });
+          throw error;
         }
       }
 
