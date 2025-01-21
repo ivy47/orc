@@ -10,7 +10,6 @@ export interface CleanupResult<T extends K8sResource> {
   resource: T;
   success: boolean;
   error?: string;
-  dryRun: boolean;
 }
 
 export interface ScanReport<T extends K8sResource> {

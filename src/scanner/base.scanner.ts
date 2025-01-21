@@ -12,7 +12,7 @@ export abstract class BaseResourceScanner<T extends K8sResource> {
 
   abstract scan(): Promise<T[]>;
   abstract isOrphaned(resource: T): Promise<boolean>;
-  abstract cleanup(resource: T, dryRun: boolean): Promise<CleanupResult<T>>;
+  abstract cleanup(resource: T): Promise<CleanupResult<T>>;
 
   shouldProcess(resource: T): boolean {
     const annotations = resource.metadata?.annotations || {};

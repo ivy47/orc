@@ -5,6 +5,7 @@ import { ConfigService } from '../config/config.service';
 import { K8sResource, BatchScanReport, ScanReport } from '../types';
 import { ServiceScanner } from './scanners/service.scanner';
 import { generateResourceName, getResourceAge, getResourceLabels } from '../utils/logger';
+import { IngressScanner } from './scanners/ingress.scanner';
 
 @Injectable()
 export class ScannerService {
@@ -15,8 +16,9 @@ export class ScannerService {
     private readonly configService: ConfigService,
     private readonly namespaceScanner: NamespaceScanner,
     private readonly serviceScanner: ServiceScanner,
+    private readonly ingressScanner: IngressScanner,
   ) {
-    this.scanners = [this.namespaceScanner, this.serviceScanner];
+    this.scanners = [this.namespaceScanner, this.serviceScanner, this.ingressScanner];
   }
 
   async scan(): Promise<BatchScanReport> {
@@ -110,7 +112,7 @@ export class ScannerService {
 
       if (isOrphaned) {
         const context = {
-          labels,
+          ...(labels && { labels }),
           age: getResourceAge(resource),
           resource: resourceName,
         };
@@ -118,11 +120,15 @@ export class ScannerService {
         this.logger.debug(`Orphaned resource detected: ${resourceName}`, context);
 
         if (this.configService.get().dryRun) {
-          return;
+          return {
+            resource,
+            isOrphaned,
+            skipped: false,
+          };
         }
 
         try {
-          const result = await scanner.cleanup(resource, false);
+          const result = await scanner.cleanup(resource);
 
           if (result.success) {
             this.logger.debug(`Successfully cleaned up orphaned resource: ${resourceName}`, context);

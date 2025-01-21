@@ -52,25 +52,21 @@ export class NamespaceScanner extends BaseResourceScanner<k8s.V1Namespace> {
     }
   }
 
-  async cleanup(namespace: k8s.V1Namespace, dryRun: boolean): Promise<CleanupResult<k8s.V1Namespace>> {
+  async cleanup(namespace: k8s.V1Namespace): Promise<CleanupResult<k8s.V1Namespace>> {
     try {
-      if (!dryRun) {
-        await this.kubeService.coreApi.deleteNamespace({
-          name: namespace.metadata.name,
-        });
-      }
+      await this.kubeService.coreApi.deleteNamespace({
+        name: namespace.metadata.name,
+      });
 
       return {
         resource: namespace,
         success: true,
-        dryRun,
       };
     } catch (error) {
       return {
         resource: namespace,
         success: false,
         error: error.message,
-        dryRun,
       };
     }
   }
