@@ -38,26 +38,22 @@ export class ServiceScanner extends BaseResourceScanner<k8s.V1Service> {
     }
   }
 
-  async cleanup(svc: k8s.V1Service, dryRun: boolean): Promise<CleanupResult<k8s.V1Service>> {
+  async cleanup(svc: k8s.V1Service): Promise<CleanupResult<k8s.V1Service>> {
     try {
-      if (!dryRun) {
-        await this.kubeService.coreApi.deleteNamespacedService({
-          name: svc.metadata.name,
-          namespace: svc.metadata.namespace,
-        });
-      }
+      await this.kubeService.coreApi.deleteNamespacedService({
+        name: svc.metadata.name,
+        namespace: svc.metadata.namespace,
+      });
 
       return {
         resource: svc,
         success: true,
-        dryRun,
       };
     } catch (error) {
       return {
         resource: svc,
         success: false,
         error: error.message,
-        dryRun,
       };
     }
   }
