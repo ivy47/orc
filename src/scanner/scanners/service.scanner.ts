@@ -29,7 +29,7 @@ export class ServiceScanner extends BaseResourceScanner<k8s.V1Service> {
         namespace: svc.metadata.namespace,
       });
 
-      const hasEndpoints = endpoints.subsets?.some((subset) => (subset.addresses?.length ?? 0) > 0);
+      const hasEndpoints = endpoints.subsets?.length > 0;
 
       return !hasEndpoints;
     } catch (error) {
