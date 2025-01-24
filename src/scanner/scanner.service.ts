@@ -1,11 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { BaseResourceScanner } from './base.scanner';
-import { NamespaceScanner } from './scanners/namespace.scanner';
 import { ConfigService } from '../config/config.service';
 import { K8sResource, BatchScanReport, ScanReport } from '../types';
-import { ServiceScanner } from './scanners/service.scanner';
 import { generateResourceName, getResourceAge, getResourceLabels } from '../utils/logger';
-import { IngressScanner } from './scanners/ingress.scanner';
+import { PdbScanner, IngressScanner, NamespaceScanner, ServiceScanner } from './scanners';
 
 @Injectable()
 export class ScannerService {
@@ -17,8 +15,9 @@ export class ScannerService {
     private readonly namespaceScanner: NamespaceScanner,
     private readonly serviceScanner: ServiceScanner,
     private readonly ingressScanner: IngressScanner,
+    private readonly pdbScanner: PdbScanner,
   ) {
-    this.scanners = [this.namespaceScanner, this.serviceScanner, this.ingressScanner];
+    this.scanners = [this.namespaceScanner, this.serviceScanner, this.ingressScanner, this.pdbScanner];
   }
 
   async scan(): Promise<BatchScanReport> {

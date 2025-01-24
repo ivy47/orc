@@ -7,3 +7,9 @@ export const enrichKubernetesObject = (obj: k8s.KubernetesObject, kind: string):
     kind,
   };
 };
+
+export function getLabelSelector(labels: Record<string, string>): string {
+  return Object.entries(labels)
+    .map(([key, value]) => `${key}=${value}`)
+    .join(',');
+}
