@@ -17,7 +17,7 @@ export class IngressScanner extends BaseResourceScanner<k8s.V1Ingress> {
       const response = await this.kubeService.networkingApi.listIngressForAllNamespaces();
       return response.items.map((ingress) => enrichKubernetesObject(ingress, 'Ingress'));
     } catch (error) {
-      this.logger.error(`Failed to scan services: ${error.message}`);
+      this.logger.error(`Failed to scan ingresses: ${error.message}`);
       throw error;
     }
   }
