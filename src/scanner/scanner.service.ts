@@ -1,24 +1,18 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { BaseResourceScanner } from './base.scanner';
 import { ConfigService } from '../config/config.service';
 import { K8sResource, BatchScanReport, ScanReport } from '../types';
 import { generateResourceName, getResourceAge, getResourceLabels } from '../utils/logger';
-import { PdbScanner, IngressScanner, NamespaceScanner, ServiceScanner } from './scanners';
+import { SCANNERS_TOKEN } from './scanners.token';
 
 @Injectable()
 export class ScannerService {
   private readonly logger = new Logger(ScannerService.name);
-  private readonly scanners: BaseResourceScanner<K8sResource>[];
 
   constructor(
     private readonly configService: ConfigService,
-    private readonly namespaceScanner: NamespaceScanner,
-    private readonly serviceScanner: ServiceScanner,
-    private readonly ingressScanner: IngressScanner,
-    private readonly pdbScanner: PdbScanner,
-  ) {
-    this.scanners = [this.namespaceScanner, this.serviceScanner, this.ingressScanner, this.pdbScanner];
-  }
+    @Inject(SCANNERS_TOKEN) private readonly scanners: BaseResourceScanner<K8sResource>[],
+  ) {}
 
   async scan(): Promise<BatchScanReport> {
     const startTime = Date.now();
@@ -42,6 +36,10 @@ export class ScannerService {
 
   private async processScannerResources<T extends K8sResource>(scanner: BaseResourceScanner<T>): Promise<ScanReport<T>> {
     try {
+      if (scanner.preScan) {
+        await scanner.preScan();
+      }
+
       const resources = await scanner.scan();
       const orphanedResources: T[] = [];
       const processedResources: T[] = [];

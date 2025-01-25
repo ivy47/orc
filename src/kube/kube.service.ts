@@ -8,6 +8,7 @@ export class KubeService {
   private _appsApi: k8s.AppsV1Api;
   private _networkingApi: k8s.NetworkingV1Api;
   private _policyApi: k8s.PolicyV1Api;
+  private _storageApi: k8s.StorageV1Api;
 
   constructor() {
     this.kc = new k8s.KubeConfig();
@@ -17,6 +18,7 @@ export class KubeService {
     this._appsApi = this.kc.makeApiClient(k8s.AppsV1Api);
     this._networkingApi = this.kc.makeApiClient(k8s.NetworkingV1Api);
     this._policyApi = this.kc.makeApiClient(k8s.PolicyV1Api);
+    this._storageApi = this.kc.makeApiClient(k8s.StorageV1Api);
   }
 
   get client() {
@@ -37,5 +39,9 @@ export class KubeService {
 
   get policyApi() {
     return this._policyApi;
+  }
+
+  get storageApi() {
+    return this._storageApi;
   }
 }
