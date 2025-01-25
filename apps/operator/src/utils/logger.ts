@@ -1,4 +1,4 @@
-import * as ms from 'ms';
+import ms from 'ms';
 import { K8sResource } from '../types';
 
 export const generateResourceName = (resource: K8sResource): string => {
