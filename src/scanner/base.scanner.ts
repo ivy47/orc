@@ -10,6 +10,9 @@ export abstract class BaseResourceScanner<T extends K8sResource> {
     this.logger = new Logger(this.constructor.name);
   }
 
+  // This method is called before the scan method is called. It can be used to perform any pre-scan operations.
+  preScan?(): Promise<void>;
+
   abstract scan(): Promise<T[]>;
   abstract isOrphaned(resource: T): Promise<boolean>;
   abstract cleanup(resource: T): Promise<CleanupResult<T>>;
