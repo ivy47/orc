@@ -16,7 +16,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@orc/web/*": ["apps/web/*"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
