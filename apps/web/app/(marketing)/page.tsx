@@ -2,8 +2,8 @@ import ClientSection from "@orc/web/components/landing/client-section";
 import CallToActionSection from "@orc/web/components/landing/cta-section";
 import HeroSection from "@orc/web/components/landing/hero-section";
 import PricingSection from "@orc/web/components/landing/pricing-section";
-import Particles from "@orc/web/components/magicui/particles";
-import { SphereMask } from "@orc/web/components/magicui/sphere-mask";
+import Particles from "@orc/web/ui/magicui/ui/particles";
+import { SphereMask } from "@orc/web/ui/magicui/ui/sphere-mask";
 
 export default async function Page() {
   return (

@@ -1,8 +1,8 @@
 "use client";
 
-import Marquee from "@orc/web/components/magicui/marquee";
-import { buttonVariants } from "@orc/web/components/ui/button";
-import { cn } from "@orc/web/lib/utils";
+import Marquee from "@orc/web/ui/magicui/ui/marquee";
+import { buttonVariants } from "@orc/web/ui/magicui/ui/button";
+import { cn } from "@orc/web/ui/magicui/lib/utils";
 import { motion, useAnimation, useInView } from "framer-motion";
 import {
   BarChart,

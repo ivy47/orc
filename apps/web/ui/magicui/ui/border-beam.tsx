@@ -1,4 +1,4 @@
-import { cn } from "@orc/web/lib/utils";
+import { cn } from "./../lib/utils";
 
 interface BorderBeamProps {
   className?: string;

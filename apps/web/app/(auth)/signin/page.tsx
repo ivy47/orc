@@ -1,6 +1,6 @@
-import { buttonVariants } from "@orc/web/components/ui/button";
+import { buttonVariants } from "@orc/web/ui/magicui/ui/button";
 import { UserAuthForm } from "@orc/web/components/user-auth-form";
-import { cn } from "@orc/web/lib/utils";
+import { cn } from "@orc/web/ui/magicui/lib/utils";
 import { ChevronLeft } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";

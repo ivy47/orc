@@ -1,7 +1,7 @@
 "use client";
 
-import { buttonVariants } from "@orc/web/components/ui/button";
-import { cn } from "@orc/web/lib/utils";
+import { buttonVariants } from "@orc/web/ui/magicui/ui/button";
+import { cn } from "@orc/web/ui/magicui/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { AlignJustify, XIcon } from "lucide-react";
 import Link from "next/link";

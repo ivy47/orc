@@ -1,15 +1,15 @@
 "use client";
 
-import { buttonVariants } from "@orc/web/components/ui/button";
+import { buttonVariants } from "@orc/web/ui/magicui/ui/button";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@orc/web/components/ui/form";
-import { Input } from "@orc/web/components/ui/input";
-import { cn } from "@orc/web/lib/utils";
+} from "@orc/web/ui/magicui/ui/form";
+import { Input } from "@orc/web/ui/magicui/ui/input";
+import { cn } from "@orc/web/ui/magicui/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { Loader2 } from "lucide-react";

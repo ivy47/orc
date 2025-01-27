@@ -1,8 +1,8 @@
 "use client";
 
-import { BorderBeam } from "@orc/web/components/magicui/border-beam";
-import TextShimmer from "@orc/web/components/magicui/text-shimmer";
-import { Button } from "@orc/web/components/ui/button";
+import { BorderBeam } from "@orc/web/ui/magicui/ui/border-beam";
+import TextShimmer from "@orc/web/ui/magicui/ui/text-shimmer";
+import { Button } from "@orc/web/ui/magicui/ui/button";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { useInView } from "framer-motion";
 import { useRef } from "react";

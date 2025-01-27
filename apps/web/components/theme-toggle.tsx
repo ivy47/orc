@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from './ui/button';
+import { Button } from '@orc/web/ui/magicui/ui/button';
 import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useEffect } from 'react';

@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@orc/web/components/ui/button";
-import { Switch } from "@orc/web/components/ui/switch";
-import { cn } from "@orc/web/lib/utils";
+import { Button } from "@orc/web/ui/magicui/ui/button";
+import { Switch } from "@orc/web/ui/magicui/ui/switch";
+import { cn } from "@orc/web/ui/magicui/lib/utils";
 import { CheckIcon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
 import { Loader } from "lucide-react";
