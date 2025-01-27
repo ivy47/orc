@@ -1,3 +1,5 @@
+'use client';
+
 import { DiscordLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 
