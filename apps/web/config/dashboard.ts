@@ -9,9 +9,10 @@ export const sidebarLinks: SidebarNavItem[] = [
     title: 'MENU',
     items: [
       { href: '/dashboard', icon: 'dashboard', title: 'Dashboard' },
-      { href: '/dashboard/my-lists', icon: 'scanSearch', title: 'My Lists' },
-      { href: '/dashboard/catalog', icon: 'store', title: 'Catalog' },
-      { href: '/dashboard/alerts', icon: 'alertCircle', title: 'Alerts' },
+      { href: '/dashboard/test', icon: 'note', title: 'Test' },
+      // { href: '/dashboard/my-lists', icon: 'scanSearch', title: 'My Lists' },
+      // { href: '/dashboard/catalog', icon: 'store', title: 'Catalog' },
+      // { href: '/dashboard/alerts', icon: 'alertCircle', title: 'Alerts' },
     ],
   },
   /*{

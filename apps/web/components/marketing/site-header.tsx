@@ -6,29 +6,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { AlignJustify, XIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import {marketingConfig} from '@orc/web/config/marketing'
 
-const menuItem = [
-  {
-    id: 1,
-    label: "Features",
-    href: "/features",
-  },
-  {
-    id: 2,
-    label: "Pricing",
-    href: "#",
-  },
-  {
-    id: 3,
-    label: "Careers",
-    href: "#",
-  },
-  {
-    id: 4,
-    label: "Contact Us",
-    href: "#",
-  },
-];
+const {menuItem} = marketingConfig.header;
 
 export function SiteHeader() {
   const mobilenavbarVariant = {

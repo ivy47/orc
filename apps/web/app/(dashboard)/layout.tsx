@@ -40,17 +40,9 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   keywords: [
-    'Dropshipping',
-    'eBay lister',
-    'dropshipping tool',
-    'PriceLink',
-    'eBay dropshipping',
-    'Aliexpress dropshipping',
-    'Non API lister',
-    'eBay automation',
-    'eBay automation tool',
-    'eBay dropshipping tool',
-    'Aliexpress dropshipping tool',
+    // 'Dropshipping',
+    // 'eBay lister',
+    // 'dropshipping tool',
   ],
   authors: [
     {
@@ -59,7 +51,7 @@ export const metadata: Metadata = {
     },
   ],
   creator: 'orig',
-  manifest: `${siteConfig.url}/site.webmanifest`,
+  // manifest: `${siteConfig.url}/site.webmanifest`,
 };
 
 export const viewport: Viewport = {
